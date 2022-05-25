@@ -7,6 +7,7 @@
 
 html {
     font-family: 'Inter', sans-serif;
+    color: #222;
 }
 
 html, body {
@@ -19,9 +20,119 @@ h1 {
 
 h2  {
     font-size: 40px;
+    margin-bottom: 25px;
+}
+
+h1.is-bold,
+h2.is-bold {
+    font-weight: bold;
+    letter-spacing: -2px;
+}
+
+a {
+    text-decoration: none;
 }
 
 .container {
     max-width: 850px;
     margin: auto;
 }
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    font-family: inherit;
+
+    padding: 12px 22px;
+    background: rgba(black, 0.7);
+
+    text-decoration: none;
+    
+    color: white;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    border: none;
+
+    border-radius: 4px;
+
+    cursor: pointer;
+
+    &:hover {
+        background: rgba(black, 0.78);
+        backdrop-filter: blur(2px);
+    }
+
+    &:active {
+        background: rgba(black, 0.85);
+    }
+}
+
+.btns-container { 
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+
+    &.btns-centered {
+        justify-content: center;
+    }
+
+    .align-end {
+        margin-left: auto;
+    }
+}
+
+.add-btn i {
+    margin-right: 8px;
+    margin-left: -3px;
+    
+}
+
+.has-blurred-white-bg {
+    background: rgba(white, 0.85);
+    backdrop-filter: blur(20px);
+}
+
+.form-field {
+    margin-bottom: 20px;
+}
+
+.textbox,
+.textarea {
+    display: block;
+
+    font-size: 18px;
+    font-family: inherit;
+
+    background-color: rgba(white, 0.85);
+
+    border: 2px solid rgba(black, 0.3);
+    border-radius: 4px;
+
+    padding: 8px 10px;
+   
+    width: 100%;
+
+    &:hover {
+        background: rgba(white, 0.95);
+    }
+
+    &:focus {
+        background: white;
+        outline: none;
+        
+    }
+    
+    &:hover,
+    &:focus {
+        
+        border-color: rgba(black, 0.6);
+    }
+}
+
+.textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+

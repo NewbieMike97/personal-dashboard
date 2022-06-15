@@ -1,5 +1,13 @@
 <div class="app-wrapper">
+  <img [src]="bg" class="bg-img" (load)="onBGImageLoad()" @bgAnim />
 
+  <div
+    class="btn change-bg-btn"
+    (click)="changeBGImage()"
+    *ngIf="!loadingBGImage"
+  >
+    <i class="material-icons">refresh</i>
+  </div>
   <div class="top-section">
     <h1>19:00</h1>
     <h2>1 January 2020</h2>
@@ -10,7 +18,8 @@
   </div>
 
   <div class="bottom-section">
-      <app-tabs></app-tabs> 
+    <app-tabs></app-tabs>
   </div>
 
+  <app-notification></app-notification>
 </div>

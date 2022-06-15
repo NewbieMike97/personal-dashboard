@@ -1,40 +1,85 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
+import { fromEvent, Subscription } from 'rxjs';
 import { Note } from './note.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class NoteService {
+export class NoteService implements OnDestroy {
+  notes: Note[] = [];
 
-  notes: Note[] = [
-    new Note('Test title', 'Test content!'),
-    new Note('Hey', 'Tesing 1,2,3')
+  storageListenSub!: Subscription;
 
-  ]
+  constructor() {
+    this.loadState();
 
-  constructor() { }
+    //
+    this.storageListenSub = fromEvent(window, 'storage').subscribe(
+      (event: any) => {
+        if (event.key === 'notes') this.loadState();
+      }
+    );
 
-  getNotes() {
-    return this.notes
+    // fromEvent<StorageEvent>(window, "storage").pipe(
+    //   filter(event => event.storageArea === sessionStorage),
+    //   map(event => event.newValue)
+    // )
+    // fromEvent<StorageEvent>(window, "storage").pipe(
+    //   filter(event => event.storageArea === sessionStorage),
+    //   map(event => event.newValue)
+    // )
   }
 
-  getNote (id: string | null):Note | undefined { 
-    return this.notes.find (n => n.id === id)
+  ngOnDestroy(): void {
+    if (this.storageListenSub) this.storageListenSub.unsubscribe;
+  }
+
+  getNotes() {
+    return this.notes;
+  }
+
+  getNote(id: string | null): Note | undefined {
+    return this.notes.find((n) => n.id === id);
   }
 
   addNote(note: Note) {
-    this.notes.push(note)
+    this.notes.push(note);
+
+    this.saveState();
   }
 
   updateNote(id: string, updatedFields: Partial<Note>) {
-    const note = this.getNote(id)
-    Object.assign(note, updatedFields)
+    const note = this.getNote(id);
+    Object.assign(note, updatedFields);
+
+    this.saveState();
   }
 
   deleteNote(id: string) {
-    const noteIndex = this.notes.findIndex(n => n.id === id)
-    if (noteIndex == -1) return
+    const noteIndex = this.notes.findIndex((n) => n.id === id);
+    if (noteIndex == -1) return;
 
-    this.notes.splice(noteIndex, 1)
+    this.notes.splice(noteIndex, 1);
+
+    this.saveState();
+  }
+
+  saveState() {
+    localStorage.setItem('notes', JSON.stringify(this.notes));
+  }
+
+  loadState() {
+    try {
+      const notesInStorage = JSON.parse(localStorage.getItem('notes')!);
+      // if (!notesInStorage) return;
+
+      this.notes.length = 0; //clear the notes array while keeping referenece
+      this.notes.push(...notesInStorage);
+
+      this.notes = notesInStorage;
+    } catch (e) {
+      console.log('There was an error retrieving the notes from local storage');
+      console.log(e);
+    }
   }
 }

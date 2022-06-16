@@ -193,9 +193,9 @@ import { map } from 'rxjs/operators';
               { optional: true }
             ),
           ]),
-        ]), // TODO Animate root transitions
+        ]), // TODO Animat tranzitiile de root
       ]),
-    ]), // TODO Animate background change
+    ]), // TODO Animat schimbare background
   ],
 })
 export class AppComponent implements OnInit {
@@ -227,7 +227,7 @@ export class AppComponent implements OnInit {
   async changeBGImage() {
     this.loadingBGImage = true;
     const result = await fetch('https://source.unsplash.com/random/1920x1080', {
-      method: 'HEAD', //GET downloads image, HEAD returns the url
+      method: 'HEAD', //GET downloads image, HEAD returneaza  url
     });
 
     // if (result.url === this.bg) return this.changeBGImage();

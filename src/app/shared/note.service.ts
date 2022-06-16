@@ -73,7 +73,7 @@ export class NoteService implements OnDestroy {
       const notesInStorage = JSON.parse(localStorage.getItem('notes')!);
       // if (!notesInStorage) return;
 
-      this.notes.length = 0; //clear the notes array while keeping referenece
+      this.notes.length = 0; //clear notes array, pastrez referinta
       this.notes.push(...notesInStorage);
 
       this.notes = notesInStorage;

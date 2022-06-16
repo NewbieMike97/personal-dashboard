@@ -1,10 +1,9 @@
 .notes-wrapper {
-    height: 100%;
-    overflow-y: auto;       //scrollbar-appears
+  height: 100%;
+  overflow-y: auto; //scrollbar
 }
 
-
 app-note-card {
-    display: block;
-    margin-bottom: 15px;
+  display: block;
+  margin-bottom: 15px;
 }
